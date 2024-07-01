@@ -5,8 +5,10 @@ from .forms import ProfileForm
 
 
 def home(request):
-    return render(request, 'main/home.html')
+    return render(request, 'main/home.html')  # view for home.html
 
+def services(request):
+    return render(request, 'main/services.html')  # view for service.html
 
 @login_required
 def view_profile(request):
