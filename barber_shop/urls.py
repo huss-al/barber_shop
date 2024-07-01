@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from profiles import views as index_views
+from profiles import views as profile_views  # Import the home view from profiles
 
 
 urlpatterns = [
-    path('', index_views.index, name='index'),
+    path('', profile_views.home, name='home'),  # Set the home view as the homepage
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),  # Include Django's built-in auth URLs
+    path('profiles/', include('profiles.urls')),
 ]
