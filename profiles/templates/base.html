@@ -3,32 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Welcome to Our Barber Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
-        <nav class="navbar navbar-dark bg-dark">
-            <!-- Navbar content -->
-        </nav>
 <body>
-    <h1>Welcome to Our Barber Shop</h1>
-    <p>Discover the finest haircuts and grooming services in town.</p>
-    
-    <h2>Our Services</h2>
-    <ul>
-        <li>Haircuts</li>
-        <li>Shaves</li>
-        <li>Beard Trimming</li>
-        <li>Hair Coloring</li>
-    </ul>
-    
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="static/images/barber-shop-high-resolution-logo-transparent.png" alt="Logo" height="40">
+        </a>
+
+        <!-- BOOK NOW button visible on mobile -->
+        <div class="d-lg-none">
+            <button type="button" class="btn btn-primary">
+                <a class="navbar-brand" href="#">BOOK NOW</a>
+            </button>
+        </div>
+
+        <!-- Navbar toggler for mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link active" aria-current="page" href="#">HOME</a>
+                <a class="nav-link" href="#">SERVICES & PRICES</a>
+                <a class="nav-link" href="#">GALLERY</a>
+                <a class="nav-link" href="#">ABOUT US</a>
+                <a class="nav-link" href="#">CONTACT US</a>
+                <a class="nav-link" href="#">SIGN IN</a>
+            </div>
+
+            <!-- BOOK NOW button visible on desktop -->
+            <div class="d-none d-lg-block">
+                <button type="button" class="btn btn-primary">
+                    <a class="navbar-brand" href="#">BOOK NOW</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+     
     <!-- This block will be overridden by child templates -->
     {% block content %}
     {% endblock %}
 
-    <h2>Contact Us</h2>
-    <p>Address: 123 Barber St, Hairtown</p>
-    <p>Phone: (123) 456-7890</p>
-    <p>Email: info@barbershop.com</p>
+<footer>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-12 col-md-3">
+                <div class="row">
+                    <div class="col-12">
+                        <a class="navbar-brand" href="#">
+                            <img src="static/images/barber-shop-high-resolution-logo-transparent.png" alt="Logo" height="80">
+                        </a>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-12">
+                        <a href="https://www.instagram.com/">
+                            <i class="fa-brands fa-instagram fa-beat"></i>
+                        </a>
+                        <a href="https://www.facebook.com/">
+                            <i class="fa-brands fa-facebook fa-beat"></i>
+                        </a>
+                        <a href="https://www.google.com/maps/dir//33+Wine+St,+Bristol+BS1+2BQ/@51.4556213,-2.6735896,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x48718e7742a2b1bf:0x2bee816e8e346c4d!2m2!1d-2.5911894!2d51.4556502?entry=ttu">
+                            <i class="fa-solid fa-location-dot" style="color: #74C0FC;"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3 text-center">
+                <h4>Useful Links</h4>
+                <ul class="list-unstyled">
+                    <li>
+                        <a href="">Home</a>
+                    </li>
+                    <li>
+                        <a href="">Services</a>
+                    </li>
+                    <li>
+                        <a href="">Gallery</a>
+                    </li>
+                    <li>
+                        <a href="">About Us</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-3">
+                <h4>Contact Us</h4>
+                <ul class="list-unstyled">
+                    <li>874 Somewhere Street</li>
+                    <li>BS1 1AA, Bristol</li>
+                    <li>0117 123 45678</li>
+                </ul>
+            </div>
+            <div class="col-12 col-md-3">
+                <h4>Opening Hours</h4>
+                <h6>MONDAY - FRIDAY</h6>
+                <p>9am - 7pm</p>
+                <h6>SATURDAY</h6>
+                <p>10am - 8pm</p>
+                <h6>SUNDAY</h6>
+                <p>closed</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/8f470d4365.js" crossorigin="anonymous"></script>
 </body>
 </html>
