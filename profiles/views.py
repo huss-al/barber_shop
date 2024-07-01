@@ -10,6 +10,15 @@ def home(request):
 def services(request):
     return render(request, 'main/services.html')  # view for service.html
 
+def gallery(request):
+    return render(request, 'main/gallery.html') 
+
+def about_us(request):
+    return render(request, 'main/about_us.html')   
+
+def contact_us(request):
+    return render(request, 'main/contact_us.html')
+
 @login_required
 def view_profile(request):
     profile = get_object_or_404(Profile, user=request.user)

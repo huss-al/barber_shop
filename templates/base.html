@@ -31,9 +31,9 @@
             <div class="navbar-nav ms-auto">
                 <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="{% url 'home-page' %}">HOME</a>
                 <a class="nav-link {% if '/services/' in request.path %}active{% endif %}" href="{% url 'services-page' %}">SERVICES & PRICES</a>
-                <a class="nav-link" href="#">GALLERY</a>
-                <a class="nav-link" href="#">ABOUT US</a>
-                <a class="nav-link" href="#">CONTACT US</a>
+                <a class="nav-link {% if '/gallery/' in request.path %}active{% endif %}" href="{% url 'gallery-page' %}">GALLERY</a>
+                <a class="nav-link {% if '/about_us/' in request.path %}active{% endif %}" href="{% url 'about_us-page' %}">ABOUT US</a>
+                <a class="nav-link {% if '/contact_us/' in request.path %}active{% endif %}" href="{% url 'contact_us-page' %}">CONTACT US</a>
                 <a class="nav-link" href="#">SIGN IN</a>
             </div>
 
