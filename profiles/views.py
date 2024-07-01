@@ -5,7 +5,7 @@ from .forms import ProfileForm
 
 
 def home(request):
-    return render(request, 'profiles/home.html')
+    return render(request, 'main/home.html')
 
 
 @login_required
