@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Profile, CutType
+from .models import Profile, CutType, Gallery
 from .forms import ProfileForm
 
 
 def home(request):
     return render(request, 'main/home.html')  # view for home.html
+
 
 def services(request):
     return render(request, 'main/services.html')  # view for service.html
@@ -14,14 +15,22 @@ def services_view(request):
     cut_types = CutType.objects.all()  # Retrieve all CutType entries
     return render(request, 'main/services.html', {'cut_types': cut_types})
 
+
 def gallery(request):
     return render(request, 'main/gallery.html') 
+
+def gallery_view(request):
+    images = Gallery.objects.all()
+    return render(request, 'main/gallery.html', {'images': images})
+
 
 def about_us(request):
     return render(request, 'main/about_us.html')   
 
+
 def contact_us(request):
     return render(request, 'main/contact_us.html')
+
 
 @login_required
 def view_profile(request):

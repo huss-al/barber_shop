@@ -21,3 +21,10 @@ class CutType(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Gallery(models.Model):
+    image = CloudinaryField('max_length=255')
+
+    def __str__(self):
+        return f"Gallery Image {self.id}"
