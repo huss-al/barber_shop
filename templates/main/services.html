@@ -30,13 +30,15 @@ Services and Prices
                 <tr>
                     <th scope="col">Service</th>
                     <th scope="col">Price (£)</th>
+                    <th scope="col">Duration (mins)</th> <!-- Added duration column -->
                 </tr>
             </thead>
             <tbody>
-                {% for service in services %}
+                {% for cut_type in cut_types %}
                 <tr>
-                    <td>{{ service.name }}</td>
-                    <td>£{{ service.price }}</td>
+                    <td>{{ cut_type.name }}</td>
+                    <td>£{{ cut_type.price }}</td>
+                    <td>{{ cut_type.duration }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
