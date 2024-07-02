@@ -1,6 +1,23 @@
+<!-- templates/main/about_us.html -->
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+About Us
+{% endblock %}
 
 {% block content %}
-    <h1>This is the ABOUT US page</h1>
-    <!-- Add more content specific to the home page if needed -->
+<div class="container mt-5">
+    <h2>About Us</h2>
+    {% if content %}
+        {% if content.image %}
+            <div class="mb-4">
+                <img src="{{ content.image.url }}" class="img-fluid" alt="About Us Image">
+            </div>
+        {% endif %}
+        <p>{{ content.paragraph }}</p>
+    {% else %}
+        <p>No content available. Please check back later.</p>
+    {% endif %}
+</div>
 {% endblock %}
