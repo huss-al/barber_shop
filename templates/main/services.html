@@ -1,4 +1,3 @@
-<!-- templates/main/services.html -->
 {% extends 'base.html' %}
 {% load static %}
 
@@ -34,50 +33,12 @@ Services and Prices
                 </tr>
             </thead>
             <tbody>
+                {% for service in services %}
                 <tr>
-                    <td>Haircut</td>
-                    <td>£15</td>
+                    <td>{{ service.name }}</td>
+                    <td>£{{ service.price }}</td>
                 </tr>
-                <tr>
-                    <td>Skin Fade</td>
-                    <td>£18</td>
-                </tr>
-                <tr>
-                    <td>O.A.P</td>
-                    <td>£12</td>
-                </tr>
-                <tr>
-                    <td>Beard Trim & Line Up</td>
-                    <td>£10</td>
-                </tr>
-                <tr>
-                    <td>Clean Hot Towel Shave</td>
-                    <td>£20</td>
-                </tr>
-                <tr>
-                    <td>Clipper Beard Trim</td>
-                    <td>£8</td>
-                </tr>
-                <tr>
-                    <td>Shape Up</td>
-                    <td>£8</td>
-                </tr>
-                <tr>
-                    <td>Skin Fade & Hot Towel Shave</td>
-                    <td>£25</td>
-                </tr>
-                <tr>
-                    <td>Haircut & Hot Towel Shave</td>
-                    <td>£25</td>
-                </tr>
-                <tr>
-                    <td>Steam Face Mask</td>
-                    <td>£15</td>
-                </tr>
-                <tr>
-                    <td>Threading</td>
-                    <td>£10</td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
@@ -91,5 +52,11 @@ Services and Prices
     </div>
 </div>
 
-
 {% endblock %}
+
+
+
+
+
+
+

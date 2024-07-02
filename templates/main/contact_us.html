@@ -1,6 +1,56 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>This is the CONTACT US page</h1>
-    <!-- Add more content specific to the home page if needed -->
+<main class="flex-grow-1">
+    <h1 class="text-center">Contact us</h1>
+
+    <div class="container contact-us-container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <form>
+            <div class="mb-3">
+              <label for="nameinput" class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nameinput"
+                placeholder="Enter your name"
+                required
+              >
+            </div>
+            <div class="mb-3">
+              <label for="emailinput" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="emailinput"
+                placeholder="name@example.com"
+                required
+              >
+            </div>
+            <div class="mb-3">
+              <label for="subjectinput" class="form-label">Subject</label>
+              <input
+                type="text"
+                class="form-control"
+                id="subjectinput"
+                placeholder="Enter your subject"
+                required
+              >
+            </div>
+            <div class="mb-3">
+              <label for="messageinput" class="form-label">Message</label>
+              <textarea
+                class="form-control"
+                id="messageinput"
+                rows="5"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
 {% endblock %}
