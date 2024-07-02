@@ -9,6 +9,8 @@ class Profile(models.Model):
     surname = models.CharField(max_length=100)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.CharField(max_length=255, default='https://www.example.com/default-image.jpg')
+    from cloudinary.models import CloudinaryField
+
 
     def __str__(self):
         return f"{self.firstname} {self.surname}"
