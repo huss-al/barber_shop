@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Profile, CutType, Gallery
+from .models import Profile, CutType, Gallery, AboutUsContent
 from .forms import ProfileForm
 
 
@@ -26,6 +26,10 @@ def gallery_view(request):
 
 def about_us(request):
     return render(request, 'main/about_us.html')   
+
+def about_us(request):
+    content = AboutUsContent.objects.first()  # Assuming there's only one About Us content
+    return render(request, 'main/about_us.html', {'content': content})
 
 
 def contact_us(request):
@@ -56,3 +60,5 @@ def delete_profile(request):
         user.delete()
         return redirect('home')
     return render(request, 'profiles/delete_profile.html')
+
+

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, CutType, Gallery
+from .models import Profile, CutType, Gallery, AboutUsContent
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
@@ -15,3 +15,8 @@ admin.site.register(CutType, CutTypeAdmin)
 @admin.register(Gallery)
 class GalleryAdmin(admin.ModelAdmin):
     list_display = ('id', 'image')
+
+
+admin.site.register(AboutUsContent)
+
+

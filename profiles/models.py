@@ -28,3 +28,11 @@ class Gallery(models.Model):
 
     def __str__(self):
         return f"Gallery Image {self.id}"
+    
+
+class AboutUsContent(models.Model):
+    image = CloudinaryField('image')
+    description = models.TextField()
+
+    def __str__(self):
+        return "About Us Content"
