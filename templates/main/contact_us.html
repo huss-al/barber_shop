@@ -2,55 +2,39 @@
 
 {% block content %}
 <main class="flex-grow-1">
-    <h1 class="text-center">Contact us</h1>
-
     <div class="container contact-us-container">
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <form>
-            <div class="mb-3">
-              <label for="nameinput" class="form-label">Name</label>
-              <input
-                type="text"
-                class="form-control"
-                id="nameinput"
-                placeholder="Enter your name"
-                required
-              >
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3 mt-5">
+                        <label for="id_name" class="form-label">Name</label>
+                        <div>
+                        {{ form.name }}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_email" class="form-label">Email address</label>
+                        <div>
+                          {{ form.email }}
+                          </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_subject" class="form-label">Subject</label>
+                        <div>
+                          {{ form.subject }}
+                          </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_message" class="form-label">Message</label>
+                        <div>
+                          {{ form.message }}
+                          </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-5">Submit</button>
+                </form>
             </div>
-            <div class="mb-3">
-              <label for="emailinput" class="form-label">Email address</label>
-              <input
-                type="email"
-                class="form-control"
-                id="emailinput"
-                placeholder="name@example.com"
-                required
-              >
-            </div>
-            <div class="mb-3">
-              <label for="subjectinput" class="form-label">Subject</label>
-              <input
-                type="text"
-                class="form-control"
-                id="subjectinput"
-                placeholder="Enter your subject"
-                required
-              >
-            </div>
-            <div class="mb-3">
-              <label for="messageinput" class="form-label">Message</label>
-              <textarea
-                class="form-control"
-                id="messageinput"
-                rows="5"
-                required
-              ></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </form>
         </div>
-      </div>
     </div>
-  </main>
+</main>
 {% endblock %}

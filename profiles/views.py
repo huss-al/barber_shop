@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Profile, CutType, Gallery, AboutUsContent
-from .forms import ProfileForm
+from .models import Profile, CutType, Gallery, AboutUsContent, ContactMessage
+from .forms import ProfileForm, ContactForm
 
 
 def home(request):
@@ -62,3 +62,29 @@ def delete_profile(request):
     return render(request, 'profiles/delete_profile.html')
 
 
+def contact_us(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            
+            # Save to database
+            ContactMessage.objects.create(
+                name=name,
+                email=email,
+                subject=subject,
+                message=message
+            )
+            
+            return redirect('contact_us_confirmation-page')
+    else:
+        form = ContactForm()
+    
+    return render(request, 'main/contact_us.html', {'form': form})
+
+def contact_us_confirmation(request):
+    last_message = ContactMessage.objects.last()  # Get the last submitted message
+    return render(request, 'main/contact_us_confirmation.html', {'message': last_message})
