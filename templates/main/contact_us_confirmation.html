@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<main class="flex-grow-1">
+    <div class="container">
+        <h1 class="text-center mb-5">Contact Form Submission Confirmation</h1>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Thank you for your message!</h5>
+                <p class="card-text">Here is a summary of what you sent:</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Name:</strong> {{ name }}</li>
+                    <li class="list-group-item"><strong>Email:</strong> {{ email }}</li>
+                    <li class="list-group-item"><strong>Subject:</strong> {{ subject }}</li>
+                    <li class="list-group-item"><strong>Message:</strong> {{ message }}</li>
+                    <li class="list-group-item"><strong>Sent at:</strong> {{ sent_at }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
