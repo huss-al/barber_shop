@@ -1,7 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Profile, CutType, Gallery, AboutUsContent, ContactMessage
-from .forms import ProfileForm, ContactForm
+from .models import Profile, CutType, Gallery, AboutUsContent, ContactMessage, Appointment
+from .forms import ProfileForm, ContactForm, BookingForm
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
+from django.views import View
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login as auth_login
+
+
 
 
 def home(request):
@@ -20,7 +27,7 @@ def gallery(request):
     return render(request, 'main/gallery.html') 
 
 def gallery_view(request):
-    images = Gallery.objects.all()
+    images = Gallery.objects.all()  
     return render(request, 'main/gallery.html', {'images': images})
 
 
@@ -36,10 +43,14 @@ def contact_us(request):
     return render(request, 'main/contact_us.html')
 
 
+def booking_page(request):
+    return render(request, 'main/booking_page.html')
+
+
 @login_required
 def view_profile(request):
     profile = get_object_or_404(Profile, user=request.user)
-    return render(request, 'profiles/view_profile.html', {'profile': profile})
+    return render(request, 'main/view_profile.html', {'profile': profile})
 
 @login_required
 def edit_profile(request):
@@ -51,7 +62,7 @@ def edit_profile(request):
             return redirect('view_profile')
     else:
         form = ProfileForm(instance=profile)
-    return render(request, 'profiles/edit_profile.html', {'form': form})
+    return render(request, 'main/edit_profile.html', {'form': form})
 
 @login_required
 def delete_profile(request):
@@ -59,7 +70,7 @@ def delete_profile(request):
     if request.method == 'POST':
         user.delete()
         return redirect('home')
-    return render(request, 'profiles/delete_profile.html')
+    return render(request, 'main/delete_profile.html')
 
 
 def contact_us(request):
@@ -88,3 +99,61 @@ def contact_us(request):
 def contact_us_confirmation(request):
     last_message = ContactMessage.objects.last()  # Get the last submitted message
     return render(request, 'main/contact_us_confirmation.html', {'message': last_message})
+
+
+
+class CustomLoginView(LoginView):
+    template_name = 'main/login.html'
+    
+    def get_success_url(self):
+        return reverse_lazy('booking-page')  # Assuming 'booking-page' is the name of your booking page URL
+
+    def form_valid(self, form):
+        # Handle form validation logic here if needed
+        return super().form_valid(form)
+
+class RegisterView(View):
+    def get(self, request):
+        form = CustomUserCreationForm()
+        return render(request, 'main/register.html', {'form': form})
+
+    def post(self, request):
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+        return render(request, 'main/register.html', {'form': form})
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user)
+            return redirect('home-page')  # Redirect to home page or any other page after registration
+    else:
+        form = UserCreationForm()
+    return render(request, 'main/register.html', {'form': form})
+
+
+@login_required
+def booking_page(request):
+    cut_types = CutType.objects.all()  # Fetch all CutType instances for the booking form dropdown
+
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            appointment = form.save(commit=False)
+            appointment.client = request.user.profile  # Assuming Profile model is linked correctly
+            appointment.save()
+            return redirect('booking_success')  # Redirect to success page or appropriate URL
+    else:
+        form = BookingForm()
+
+    return render(request, 'main/booking_page.html', {'form': form, 'cut_types': cut_types})
+
+@login_required
+def booking_success(request):
+    latest_appointment = Appointment.objects.filter(client=request.user.profile).last()
+    return render(request, 'main/booking_success.html', {'appointment': latest_appointment})

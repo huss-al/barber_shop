@@ -9,3 +9,5 @@ class AppointmentAdmin(admin.ModelAdmin):
 @admin.register(CutType)
 class CutTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'duration')
+
+

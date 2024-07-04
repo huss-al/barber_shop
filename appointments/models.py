@@ -13,12 +13,12 @@ class CutType(models.Model):
 class Appointment(models.Model):
     notes = models.CharField(max_length=255)
     datetime = models.DateTimeField()
-    client = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    barber = models.ForeignKey(Barber, on_delete=models.CASCADE)
+    client = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='client_appointments')
+    barber = models.ForeignKey(Barber, on_delete=models.CASCADE, related_name='barber_appointments')
     cut = models.ForeignKey(CutType, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('datetime', 'barber')
 
     def __str__(self):
-        return f"Appointment with {self.client} at {self.datetime}"
+        return f"Appointment with {self.client} at {self.datetime} for {self.cut}"

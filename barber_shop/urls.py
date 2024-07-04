@@ -22,6 +22,7 @@ from profiles import views as profile_views  # Import the home view from profile
 urlpatterns = [
     path('', profile_views.home, name='home'),  # Set the home view as the homepage
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),  # Include Django's built-in auth URLs
     path('profiles/', include('profiles.urls')),
+    path('appointments/', include('appointments.urls')),
+    path("accounts/", include("allauth.urls")),
 ]

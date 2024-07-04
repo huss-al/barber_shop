@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, CutType, Gallery, AboutUsContent, ContactMessage
+from .models import Profile, CutType, Gallery, AboutUsContent, ContactMessage, Appointment
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
@@ -23,3 +23,4 @@ class ContactMessageAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'subject', 'message')
     search_fields = ('name', 'email', 'subject', 'message')
 
+admin.site.register(Appointment)

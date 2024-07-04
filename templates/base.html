@@ -34,13 +34,12 @@
                 <a class="nav-link {% if '/gallery/' in request.path %}active{% endif %}" href="{% url 'gallery-page' %}">GALLERY</a>
                 <a class="nav-link {% if '/about_us/' in request.path %}active{% endif %}" href="{% url 'about_us-page' %}">ABOUT US</a>
                 <a class="nav-link {% if '/contact_us/' in request.path %}active{% endif %}" href="{% url 'contact_us-page' %}">CONTACT US</a>
-                <a class="nav-link" href="#">SIGN IN</a>
             </div>
 
             <!-- BOOK NOW button visible on desktop -->
             <div class="d-none d-lg-block">
                 <button type="button" class="btn btn-primary">
-                    <a class="navbar-brand" href="#">BOOK NOW</a>
+                    <a class="navbar-brand" href="{% url 'redirect_to_login' %}">BOOK NOW</a>
                 </button>
             </div>
         </div>
