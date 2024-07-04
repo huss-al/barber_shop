@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Profile, CutType, Gallery, AboutUsContent, ContactMessage, Appointment
+from .models import Profile, CutType, Gallery, AboutUsContent, ContactMessage, Appointment, Barber
 from .forms import ProfileForm, ContactForm, BookingForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
@@ -140,6 +140,7 @@ def register(request):
 @login_required
 def booking_page(request):
     cut_types = CutType.objects.all()  # Fetch all CutType instances for the booking form dropdown
+    barbers = Barber.objects.all()  # Fetch all Barber instances for the dropdown
 
     if request.method == 'POST':
         form = BookingForm(request.POST)
@@ -151,7 +152,7 @@ def booking_page(request):
     else:
         form = BookingForm()
 
-    return render(request, 'main/booking_page.html', {'form': form, 'cut_types': cut_types})
+    return render(request, 'main/booking_page.html', {'form': form, 'cut_types': cut_types, 'barbers': barbers})
 
 @login_required
 def booking_success(request):

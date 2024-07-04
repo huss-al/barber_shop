@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile, ContactMessage, Appointment
+from .models import Profile, ContactMessage, Appointment, CutType
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from barbers.models import Barber 
@@ -35,10 +35,15 @@ class CustomUserCreationForm(UserCreationForm):
 class BookingForm(forms.ModelForm):
     class Meta:
         model = Appointment
-        fields = ['notes', 'datetime', 'cut', 'barber']
+        fields = ['datetime', 'cut', 'barber']
 
         widgets = {
-            'notes': forms.TextInput(attrs={'class': 'form-control'}),
-            'datetime': forms.DateTimeInput(attrs={'class': 'form-control'}),
+            'datetime': forms.DateTimeInput(attrs={'class': 'form-control','type': 'datetime-local'}),
             'cut': forms.Select(attrs={'class': 'form-control'}),
+            'barber': forms.Select(attrs={'class': 'form-control'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(BookingForm, self).__init__(*args, **kwargs)
+        self.fields['cut'].queryset = CutType.objects.all()
+        self.fields['barber'].queryset = Barber.objects.filter(is_available=True)

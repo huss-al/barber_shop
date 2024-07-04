@@ -5,5 +5,4 @@ class Barber(models.Model):
     name = models.CharField(max_length=100)
     image = CloudinaryField('image')
 
-    def __str__(self):
-        return self.name
+    is_available = models.BooleanField(default=True)  # Add this field

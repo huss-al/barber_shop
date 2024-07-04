@@ -26,7 +26,7 @@ class CutType(models.Model):
     
 class Barber(models.Model):
     name = models.CharField(max_length=100)
-    # Add other fields as needed
+    image = CloudinaryField('image')
 
     def __str__(self):
         return self.name
@@ -59,11 +59,10 @@ class ContactMessage(models.Model):
 
 
 class Appointment(models.Model):
-    notes = models.CharField(max_length=255)
     datetime = models.DateTimeField()
-    client = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile_appointments')
-    barber = models.ForeignKey(Barber, on_delete=models.CASCADE, related_name='barber_profile_appointments')
     cut = models.ForeignKey(CutType, on_delete=models.CASCADE)
+    barber = models.ForeignKey(Barber, on_delete=models.CASCADE)  # Add this field
+    client = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('datetime', 'barber')
