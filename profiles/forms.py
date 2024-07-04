@@ -38,7 +38,7 @@ class BookingForm(forms.ModelForm):
         fields = ['datetime', 'cut', 'barber']
 
         widgets = {
-            'datetime': forms.DateTimeInput(attrs={'class': 'form-control','type': 'datetime-local'}),
+            'datetime': forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
             'cut': forms.Select(attrs={'class': 'form-control'}),
             'barber': forms.Select(attrs={'class': 'form-control'}),
         }

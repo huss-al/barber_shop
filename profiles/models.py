@@ -6,16 +6,16 @@ from barbers.models import Barber
 
 # Create your models here.
 class Profile(models.Model):
-    id = models.AutoField(primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     firstname = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = CloudinaryField(max_length=255, default='https://www.example.com/default-image.jpg')
-
 
     def __str__(self):
         return f"{self.firstname} {self.surname}"
     
+
+
 class CutType(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
@@ -24,9 +24,13 @@ class CutType(models.Model):
     def __str__(self):
         return self.name
     
+
+    
 class Barber(models.Model):
     name = models.CharField(max_length=100)
     image = CloudinaryField('image')
+    is_available = models.BooleanField(default=True)  # New field for availability
+
 
     def __str__(self):
         return self.name
@@ -60,12 +64,9 @@ class ContactMessage(models.Model):
 
 class Appointment(models.Model):
     datetime = models.DateTimeField()
+    client = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='appointments')
+    barber = models.ForeignKey(Barber, on_delete=models.CASCADE, related_name='barber_appointments')
     cut = models.ForeignKey(CutType, on_delete=models.CASCADE)
-    barber = models.ForeignKey(Barber, on_delete=models.CASCADE)  # Add this field
-    client = models.ForeignKey(Profile, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ('datetime', 'barber')
 
     def __str__(self):
         return f"Appointment with {self.client} at {self.datetime} for {self.cut}"

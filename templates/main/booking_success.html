@@ -4,17 +4,12 @@
 
 {% block content %}
     <h2>Booking Successful!</h2>
-    {% if appointment %}
         <p>Your appointment details:</p>
         <div class="container mb-5">
             <p><strong>Date and Time:</strong> {{ appointment.datetime }}</p>
             <p><strong>Service:</strong> {{ appointment.cut }}</p>
             <p><strong>Barber:</strong> {{ appointment.barber }}</p>
             <p><strong>Client:</strong> {{ appointment.client.user.username }}</p>
-            <p><strong>Notes:</strong> {{ appointment.notes }}</p>
         </div>
-    {% else %}
-        <p>No appointment details found.</p>
-    {% endif %}
     <p>Thank you for choosing our services.</p>
 {% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Profile, CutType, Gallery, AboutUsContent, ContactMessage, Appointment, Barber
-from .forms import ProfileForm, ContactForm, BookingForm
+from .forms import ProfileForm, ContactForm, BookingForm, CustomUserCreationForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views import View
@@ -140,21 +140,27 @@ def register(request):
 @login_required
 def booking_page(request):
     cut_types = CutType.objects.all()  # Fetch all CutType instances for the booking form dropdown
-    barbers = Barber.objects.all()  # Fetch all Barber instances for the dropdown
+    barbers = Barber.objects.filter(is_available=True)  # Fetch all Barber instances for the dropdown
 
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
             appointment = form.save(commit=False)
-            appointment.client = request.user.profile  # Assuming Profile model is linked correctly
+            appointment.client = request.user.profile
             appointment.save()
-            return redirect('booking_success')  # Redirect to success page or appropriate URL
+            return redirect('booking_success')  # Redirect to the success page
     else:
         form = BookingForm()
 
     return render(request, 'main/booking_page.html', {'form': form, 'cut_types': cut_types, 'barbers': barbers})
 
+
+
 @login_required
 def booking_success(request):
-    latest_appointment = Appointment.objects.filter(client=request.user.profile).last()
-    return render(request, 'main/booking_success.html', {'appointment': latest_appointment})
+    try:
+        appointment = Appointment.objects.filter(client=request.user.profile).latest('datetime')
+    except Appointment.DoesNotExist:
+        appointment = None
+
+    return render(request, 'main/booking_success.html', {'appointment': appointment})
