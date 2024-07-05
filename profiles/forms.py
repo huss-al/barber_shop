@@ -10,6 +10,8 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         fields = ['firstname', 'surname']
 
+
+
 class ContactForm(forms.Form):
     name = forms.CharField(label='Name', max_length=100)
     email = forms.EmailField(label='Email address')
@@ -18,17 +20,26 @@ class ContactForm(forms.Form):
 
 
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    firstname = forms.CharField(max_length=30, required=True)
+    surname = forms.CharField(max_length=30, required=True)
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'firstname', 'surname', 'email', 'password1', 'password2')
 
     def save(self, commit=True):
-        user = super(CustomUserCreationForm, self).save(commit=False)
-        user.email = self.cleaned_data['email']
+        user = super().save(commit=False)
+        user.first_name = self.cleaned_data['firstname']
+        user.last_name = self.cleaned_data['surname']
         if commit:
             user.save()
+            # Check if profile already exists
+            profile, created = Profile.objects.get_or_create(user=user)
+            if not created:
+                # Update existing profile if necessary
+                profile.firstname = self.cleaned_data['firstname']
+                profile.surname = self.cleaned_data['surname']
+                profile.save()
         return user
     
 

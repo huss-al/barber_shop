@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
-from barbers.models import Barber
+
 
 
 # Create your models here.
@@ -9,7 +9,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     firstname = models.CharField(max_length=100)
     surname = models.CharField(max_length=100)
-    image = CloudinaryField(max_length=255, default='https://www.example.com/default-image.jpg')
 
     def __str__(self):
         return f"{self.firstname} {self.surname}"
@@ -24,7 +23,6 @@ class CutType(models.Model):
     def __str__(self):
         return self.name
     
-
     
 class Barber(models.Model):
     name = models.CharField(max_length=100)
@@ -63,10 +61,10 @@ class ContactMessage(models.Model):
 
 
 class Appointment(models.Model):
-    datetime = models.DateTimeField()
-    client = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='appointments')
+    client = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile_appointments')
     barber = models.ForeignKey(Barber, on_delete=models.CASCADE, related_name='barber_appointments')
-    cut = models.ForeignKey(CutType, on_delete=models.CASCADE)
+    cut = models.ForeignKey(CutType, on_delete=models.CASCADE, related_name='cut_appointments')
+    datetime = models.DateTimeField()
 
     def __str__(self):
-        return f"Appointment with {self.client} at {self.datetime} for {self.cut}"
+        return f"{self.client.user.username}'s appointment with {self.barber.name}"

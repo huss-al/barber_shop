@@ -6,6 +6,7 @@ class AppointmentAdmin(admin.ModelAdmin):
     list_display = ('client', 'barber', 'datetime', 'cut')
     search_fields = ('client__firstname', 'client__surname', 'barber__name', 'cut__name')
 
+
 @admin.register(CutType)
 class CutTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'duration')

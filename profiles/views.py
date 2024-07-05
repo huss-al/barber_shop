@@ -11,6 +11,7 @@ from django.contrib.auth import login as auth_login
 
 
 
+
 def home(request):
     return render(request, 'main/home.html')  # view for home.html
 
@@ -120,22 +121,22 @@ class RegisterView(View):
     def post(self, request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('login')
+            user = form.save()
+            auth_login(request, user)
+            return redirect('login')  # Redirect to your desired page after successful registration
         return render(request, 'main/register.html', {'form': form})
 
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            auth_login(request, user)
-            return redirect('home-page')  # Redirect to home page or any other page after registration
+            auth_login(request, user)  # Login user after successful registration
+            return redirect('home')  # Redirect to home or any other page after registration
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, 'main/register.html', {'form': form})
-
 
 @login_required
 def booking_page(request):
