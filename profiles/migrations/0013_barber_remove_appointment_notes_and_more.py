@@ -20,10 +20,7 @@ class Migration(migrations.Migration):
                 ('image', cloudinary.models.CloudinaryField(max_length=255, verbose_name='image')),
             ],
         ),
-        migrations.RemoveField(
-            model_name='appointment',
-            name='notes',
-        ),
+
         migrations.AlterField(
             model_name='appointment',
             name='client',
